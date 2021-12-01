@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import classes from './Header.module.scss';
 
 const Header = () => {
+  const [menuOpen, setmenuOpen] = useState(false);
+
   return (
     <header className={classes.header}>
       <div className={classes.header__content}>
