@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import classes from './Header.module.scss';
 
 const Header = () => {
+  const history = useHistory();
   const [menuOpen, setMenuOpen] = useState(false);
   const [size, setSize] = useState({
     width: undefined,
@@ -34,27 +36,44 @@ const Header = () => {
     setMenuOpen(menu => !menu);
   };
 
+  const ctaClickHandler = () => {
+    menuToggleHandler();
+    history.push('/page-cta');
+  };
+
   return (
     <header className={classes.header}>
       <div className={classes.header__content}>
-        <h2 className={classes.header__content__logo}>navbar</h2>
+        <Link
+          to={'/'}
+          onClick={menuToggleHandler}
+          className={classes.header__content__logo}
+        >
+          navbar
+        </Link>
         <nav
           className={`${classes.header__content__nav} ${
-            menuOpen ? classes.isMenu : ''
+            menuOpen && size.width < 768 ? classes.isMenu : ''
           } `}
         >
           <ul>
             <li>
-              <a href='/'>PageOne</a>
+              <Link to='/page-one' onClick={menuToggleHandler}>
+                PageOne
+              </Link>
             </li>
             <li>
-              <a href='/'>PageTwo</a>
+              <Link to='/page-two' onClick={menuToggleHandler}>
+                PageTwo
+              </Link>
             </li>
             <li>
-              <a href='/'>PageThree</a>
+              <Link to='/page-three' onClick={menuToggleHandler}>
+                PageThree
+              </Link>
             </li>
           </ul>
-          <button>CTA Page</button>
+          <button onClick={ctaClickHandler}>CTA Page</button>
         </nav>
         <div className={classes.header__content__toggle}>
           {menuOpen ? (
